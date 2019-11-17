@@ -14,6 +14,35 @@ var collateTotalVotesForCandidates = function(data, office) {
   }, []);
 
   return collatedData;
-}
+};
 
-console.log(collateTotalVotesForCandidates(data, 'PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES'));
+var presidentialElectionTally = collateTotalVotesForCandidates(data, 'PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES');
+
+var findWinners = function(data) {
+  var winners = [];
+
+  data.sort((a, b) => {
+    if (a.VOTES < b.VOTES) return 1;
+    if (a.VOTES > b.VOTES) return -1;
+    if (a.VOTES === b.VOTES) return 0;
+  });
+
+  data.forEach(d => {
+    if (d.VOTES > data[0].VOTES) winners.push(d);
+    else if (d.VOTES === data[0].VOTES) winners.push(d);
+  });
+
+  return winners;
+};
+
+var winners = findWinners(presidentialElectionTally);
+
+var displayWinners = function(winners) {
+  if (winners.length === 1) console.log(winners[0].CANDIDATE + ' is the winner!');
+  else {
+    console.log('The result is a tie between the following candidates:');
+    winners.forEach(w => console.log(w.CANDIDATE));
+  }
+};
+
+displayWinners(winners);

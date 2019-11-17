@@ -1,5 +1,7 @@
-var collateTotalVotesForCandidates = function(data) {
+var collateTotalVotesForCandidates = function(data, office) {
   var collatedData = data.reduce((acc, cur) => {
+    if (office && cur.OFFICE !== office) return acc;
+
     var matchingCandidate = acc.find(a => a.CANDIDATE === cur.CANDIDATE);
 
     // If candidate exists, add any new votes, otherwise add to list
@@ -14,4 +16,4 @@ var collateTotalVotesForCandidates = function(data) {
   return collatedData;
 }
 
-console.log(collateTotalVotesForCandidates(data.slice(0, 21)));
+console.log(collateTotalVotesForCandidates(data, 'PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES'));

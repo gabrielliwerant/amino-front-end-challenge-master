@@ -1,27 +1,17 @@
-//console.log(data);
+var collateTotalVotesForCandidates = function(data) {
+  var collatedData = data.reduce((acc, cur) => {
+    var matchingCandidate = acc.find(a => a.CANDIDATE === cur.CANDIDATE);
 
-var displayData = function(data) {
-  var newData = data.reduce((acc, cur, i, []) => {
-    var doesEqual = false;
-
-    var thisAcc = acc.find(a => a.CANDIATE === cur.CANDIDATE);
-
-    if (thisAcc) {
-      doesEqual = true;
-      thisAcc.VOTES = thisAcc.VOTES + cur.VOTES;
-    }
-
-    if (!doesEqual) {
-      acc.push({
-        CANDIDATE: cur.CANDIDATE,
-        VOTES: cur.VOTES
-      });
+    // If candidate exists, add any new votes, otherwise add to list
+    if (matchingCandidate) matchingCandidate.VOTES += cur.VOTES
+    else {
+      acc.push({ CANDIDATE: cur.CANDIDATE, VOTES: cur.VOTES });
     }
 
     return acc;
   }, []);
-  console.log(newData);
-  //data.map(d => console.log(d.WARD) );
+
+  return collatedData;
 }
 
-displayData(data.slice(0, 10));
+console.log(collateTotalVotesForCandidates(data.slice(0, 21)));

@@ -18,8 +18,6 @@ var collateTotalVotesForCandidates = function(data, office) {
   return collatedData;
 };
 
-var presidentialElectionTally = collateTotalVotesForCandidates(data, 'PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES');
-
 var findWinners = function(data) {
   var winners = [];
 
@@ -37,8 +35,6 @@ var findWinners = function(data) {
   return winners;
 };
 
-var winners = findWinners(presidentialElectionTally);
-
 var displayWinners = function(winners) {
   if (winners.length === 1) {
     console.log(winners[0].CANDIDATE + ' is the winner!');
@@ -50,6 +46,8 @@ var displayWinners = function(winners) {
   }
 };
 
+var presidentialElectionTally = collateTotalVotesForCandidates(data, 'PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES');
+var winners = findWinners(presidentialElectionTally);
 displayWinners(winners);
 
 /******* Progression #1 *******/

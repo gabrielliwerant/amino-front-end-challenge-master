@@ -55,7 +55,7 @@ displayWinners(winners);
 /******* Progression #1 *******/
 
 var displayElectionResultsTable = function(data) {
-  var el = window.document.querySelector('main');
+  var el = window.document.querySelector('#table-container');
   var table = '<table><thead><tr><th>Candidate</th><th>Votes</th></thead><tbody>';
 
   // Build body
@@ -65,7 +65,21 @@ var displayElectionResultsTable = function(data) {
 
   table += '</tbody></table>';
 
-  el.innerHTML += table;
+  el.innerHTML = table;
 };
 
 displayElectionResultsTable(presidentialElectionTally);
+
+/******* Progression #2 *******/
+
+var inputOfficeType = function() {
+  var submitEl = window.document.querySelector('#submit');
+  var inputEl = window.document.querySelector('#office');
+  submitEl.addEventListener('click', function() {
+    var newTally = collateTotalVotesForCandidates(data, inputEl.value);
+    findWinners(newTally);
+    displayElectionResultsTable(newTally);
+  });
+};
+
+inputOfficeType();
